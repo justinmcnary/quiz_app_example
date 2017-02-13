@@ -1,3 +1,5 @@
+/* global $ */
+
 // State object
 const state = {
     questions: [
@@ -34,178 +36,178 @@ const state = {
         "Hear all that applause for you because you got this question right? Neither do I."
     ],
 
-  admonishments: [
-    "Really? That's your guess? WE EXPECTED BETTER OF YOU!",
-    "Looks like someone wasn't paying attention in telepathy school, geesh!",
-    "That's incorrect. You've dissapointed yourself, your family, your city, state, country and planet, to say nothing of the cosmos"
-  ],
-  score: 0,
-  currentQuestionIndex: 0,
-  route: 'start',
-  lastAnswerCorrect: false,
-  feedbackRandom: 0
+    admonishments: [
+        "Really? That's your guess? WE EXPECTED BETTER OF YOU!",
+        "Looks like someone wasn't paying attention in telepathy school, geesh!",
+        "That's incorrect. You've dissapointed yourself, your family, your city, state, country and planet, to say nothing of the cosmos"
+    ],
+    score: 0,
+    currentQuestionIndex: 0,
+    route: "start",
+    lastAnswerCorrect: false,
+    feedbackRandom: 0
 };
 
 // State modification functions
 function setRoute(state, route) {
-  state.route = route;
-};
+    state.route = route;
+}
 
 function resetGame(state) {
-  state.score = 0;
-  state.currentQuestionIndex = 0;
-  setRoute(state, 'start');
-};
+    state.score = 0;
+    state.currentQuestionIndex = 0;
+    setRoute(state, "start");
+}
 
 function answerQuestion(state, answer) {
-  var currentQuestion = state.questions[state.currentQuestionIndex];
-  state.lastAnswerCorrect = currentQuestion.correctChoiceIndex === answer;
-  if (state.lastAnswerCorrect) {
-    state.score++;
-  }
-  selectFeedback(state);
-  setRoute(state, 'answer-feedback');
-};
+    const currentQuestion = state.questions[state.currentQuestionIndex]; // added const
+    state.lastAnswerCorrect = currentQuestion.correctChoiceIndex === answer;
+    if (state.lastAnswerCorrect) {
+        state.score++;
+    }
+    selectFeedback(state);
+    setRoute(state, "answer-feedback");
+}
 
 function selectFeedback(state) {
-  state.feedbackRandom = Math.random();
-};
+    state.feedbackRandom = Math.random();
+}
 
 function advance(state) {
-  state.currentQuestionIndex++;
-  if (state.currentQuestionIndex === state.questions.length) {
-    setRoute(state, 'final-feedback');
-  }
-  else {
-    setRoute(state, 'question');
-  }
-};
+    state.currentQuestionIndex++;
+    if (state.currentQuestionIndex === state.questions.length) {
+        setRoute(state, "final-feedback");
+    }
+    else {
+        setRoute(state, "question");
+    }
+}
 
 // Render functions
 function renderApp(state, elements) {
   // default to hiding all routes, then show the current route
-  Object.keys(elements).forEach(function(route) {
-    elements[route].hide();
-  });
-  elements[state.route].show();
+    Object.keys(elements).forEach((route) => {     // added big arrow
+        elements[route].hide();
+    });
+    elements[state.route].show();
 
-  if (state.route === 'start') {
-      renderStartPage(state, elements[state.route]);
-  }
-  else if (state.route === 'question') {
-      renderQuestionPage(state, elements[state.route]);
-  }
-  else if (state.route === 'answer-feedback') {
-    renderAnswerFeedbackPage(state, elements[state.route]);
-  }
-  else if (state.route === 'final-feedback') {
-    renderFinalFeedbackPage(state, elements[state.route]);
-  }
-};
+    if (state.route === "start") {
+        renderStartPage(state, elements[state.route]);
+    }
+    else if (state.route === "question") {
+        renderQuestionPage(state, elements[state.route]);
+    }
+    else if (state.route === "answer-feedback") {
+        renderAnswerFeedbackPage(state, elements[state.route]);
+    }
+    else if (state.route === "final-feedback") {
+        renderFinalFeedbackPage(state, elements[state.route]);
+    }
+}
 
 // at the moment, `renderStartPage` doesn't do anything, because
 // the start page is preloaded in our HTML, but we've included
 // the function and used above in our routing system so that this
 // application view is accounted for in our system
-function renderStartPage(state, element) {
-};
+function renderStartPage() {
+}
 
 function renderQuestionPage(state, element) {
-  renderQuestionCount(state, element.find('.question-count'));
-  renderQuestionText(state, element.find('.question-text'));
-  renderChoices(state, element.find('.choices'));
-};
+    renderQuestionCount(state, element.find(".question-count"));
+    renderQuestionText(state, element.find(".question-text"));
+    renderChoices(state, element.find(".choices"));
+}
 
 function renderAnswerFeedbackPage(state, element) {
-  renderAnswerFeedbackHeader(state, element.find(".feedback-header"));
-  renderAnswerFeedbackText(state, element.find(".feedback-text"));
-  renderNextButtonText(state, element.find(".see-next"));
-};
+    renderAnswerFeedbackHeader(state, element.find(".feedback-header"));
+    renderAnswerFeedbackText(state, element.find(".feedback-text"));
+    renderNextButtonText(state, element.find(".see-next"));
+}
 
 function renderFinalFeedbackPage(state, element) {
-  renderFinalFeedbackText(state, element.find('.results-text'));
-};
+    renderFinalFeedbackText(state, element.find(".results-text"));
+}
 
 function renderQuestionCount(state, element) {
-  var text = (state.currentQuestionIndex + 1) + "/" + state.questions.length;
-  element.text(text);
-};
+    const text = `${state.currentQuestionIndex}  1 /  ${state.questions.length}`; // added string literal
+    element.text(text);
+}
 
 function renderQuestionText(state, element) {
-  var currentQuestion = state.questions[state.currentQuestionIndex];
-  element.text(currentQuestion.text);
-};
+    const currentQuestion = state.questions[state.currentQuestionIndex]; //changed to const
+    element.text(currentQuestion.text);
+}
 
 function renderChoices(state, element) {
-  var currentQuestion = state.questions[state.currentQuestionIndex];
-  var choices = currentQuestion.choices.map(function(choice, index) {
-    return (
-      '<li>' +
-        '<input type="radio" name="user-answer" value="' + index + '" required>' +
-        '<label>' + choice + '</label>' +
-      '</li>'
-    );
-  });
-  element.html(choices);
-};
+    var currentQuestion = state.questions[state.currentQuestionIndex];
+    var choices = currentQuestion.choices.map((choice, index) => {    //added big arrow
+        return (
+          `<li>
+            <input type=radio name=user-answer value= ${index} required>
+            <label> ${choice} </label>
+          </li>`
+        );
+    });
+    element.html(choices);
+}
 
 function renderAnswerFeedbackHeader(state, element) {
-  var html = state.lastAnswerCorrect ?
+    const html = state.lastAnswerCorrect ?  //changed to const
       "<h6 class='user-was-correct'>correct</h6>" :
       "<h1 class='user-was-incorrect'>Wrooonnnngggg!</>";
 
-  element.html(html);
-};
+    element.html(html);
+}
 
 function renderAnswerFeedbackText(state, element) {
-  var choices = state.lastAnswerCorrect ? state.praises : state.admonishments;
-  var text = choices[Math.floor(state.feedbackRandom * choices.length)];
-  element.text(text);
-};
+    const choices = state.lastAnswerCorrect ? state.praises : state.admonishments; //changed to const
+    const text = choices[Math.floor(state.feedbackRandom * choices.length)];  //changed to const
+    element.text(text);
+}
 
 function renderNextButtonText(state, element) {
-    var text = state.currentQuestionIndex < state.questions.length - 1 ?
+    const text = state.currentQuestionIndex < state.questions.length - 1 ? //changed to const
       "Next" : "How did I do?";
-  element.text(text);
-};
+    element.text(text);
+}
 
 function renderFinalFeedbackText(state, element) {
-  var text = "You got " + state.score + " out of " +
-    state.questions.length + " questions right.";
-  element.text(text);
-};
+    const text = `You got ${state.score} out of
+      ${state.questions.length} questions right.`;  // changed to const, template string
+    element.text(text);
+}
 
 // Event handlers
-var PAGE_ELEMENTS = {
-  'start': $('.start-page'),
-  'question': $('.question-page'),
-  'answer-feedback': $('.answer-feedback-page'),
-  'final-feedback': $('.final-feedback-page')
+const PAGE_ELEMENTS = {
+    "start": $(".start-page"),
+    "question": $(".question-page"),
+    "answer-feedback": $(".answer-feedback-page"),
+    "final-feedback": $(".final-feedback-page")
 };
 
-$("form[name='game-start']").submit(function(event) {
-  event.preventDefault();
-  setRoute(state, 'question');
-  renderApp(state, PAGE_ELEMENTS);
+$("form[name='game-start']").submit((event) => {  //added big arrow
+    event.preventDefault();
+    setRoute(state, "question");
+    renderApp(state, PAGE_ELEMENTS);
 });
 
-$(".restart-game").click(function(event){
-  event.preventDefault();
-  resetGame(state);
-  renderApp(state, PAGE_ELEMENTS);
+$(".restart-game").click((event) => {  //added big arrow
+    event.preventDefault();
+    resetGame(state);
+    renderApp(state, PAGE_ELEMENTS);
 });
 
-$("form[name='current-question']").submit(function(event) {
-  event.preventDefault();
-  var answer = $("input[name='user-answer']:checked").val();
-  answer = parseInt(answer, 10);
-  answerQuestion(state, answer);
-  renderApp(state, PAGE_ELEMENTS);
+$("form[name='current-question']").submit((event) => {  //added big arrow
+    event.preventDefault();
+    let answer = $("input[name='user-answer']:checked").val();
+    answer = parseInt(answer, 10);
+    answerQuestion(state, answer);
+    renderApp(state, PAGE_ELEMENTS);
 });
 
-$(".see-next").click(function(event) {
-  advance(state);
-  renderApp(state, PAGE_ELEMENTS);
+$(".see-next").click(() => {  //added big arrow
+    advance(state);
+    renderApp(state, PAGE_ELEMENTS);
 });
 
-$(function() { renderApp(state, PAGE_ELEMENTS); });
+$(() => renderApp(state, PAGE_ELEMENTS));  //added arrow, removed brackets

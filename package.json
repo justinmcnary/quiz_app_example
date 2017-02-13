@@ -1,0 +1,24 @@
+{
+  "name": "quiz_app_example",
+  "version": "1.0.0",
+  "description": "",
+  "main": ".eslintrc.js",
+  "dependencies": {
+  },
+  "devDependencies": {
+    "eslint": "^3.15.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/justinmcnary/quiz_app_example.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/justinmcnary/quiz_app_example/issues"
+  },
+  "homepage": "https://github.com/justinmcnary/quiz_app_example#readme"
+}
