@@ -1,38 +1,38 @@
 // State object
-var state = {
-  questions: [
-    {
-      text: "Which number am I thinking of?",
-      choices: ["1", "2", "3", "4"],
-      correctChoiceIndex: 0
-    },
-    {
-      text: "What about now, can you guess now?",
-      choices: ["1", "2", "3", "4"],
-      correctChoiceIndex: 1
-    },
-    {
-      text: "I'm thinking of a number between 1 and 4. What is it?",
-      choices: ["1", "2", "3", "4"],
-      correctChoiceIndex: 2,
-    },
-    {
-      text: "If I were a number between 1 and 4, which would I be?",
-      choices: ["1", "2", "3", "4"],
-      correctChoiceIndex: 3,
-    },
-    {
-      text: "Guess what my favorite number is",
-      choices: ["1", "2", "3", "4"],
-      correctChoiceIndex: 0,
-    }
-  ],
-  praises : [
-    "Wow. You got it right. I bet you feel really good about yourself now",
-    "Correct. Which would be impressive, if it wasn't just luck",
-    "Oh was I yawning? Because you getting that answer right was boring me to sleep",
-    "Hear all that applause for you because you got this question right? Neither do I."
-  ],
+const state = {
+    questions: [
+        {
+            text: "Which number am I thinking of?",
+            choices: ["1", "2", "3",  "4"],
+            correctChoiceIndex: 0,
+        },
+        {
+            text: "What about now, can you guess now?",
+            choices: ["1", "2", "3", "4"],
+            correctChoiceIndex: 1,
+        },
+        {
+            text: "I'm thinking of a number between 1 and 4. What is it?",
+            choices: ["1", "2", "3", "4"],
+            correctChoiceIndex: 2,
+        },
+        {
+            text: "If I were a number between 1 and 4, which would I be?",
+            choices: ["1", "2", "3", "4"],
+            correctChoiceIndex: 3,
+        },
+        {
+            text: "Guess what my favorite number is",
+            choices: ["1", "2", "3", "4"],
+            correctChoiceIndex: 0,
+        }
+    ],
+    praises : [
+        "Wow. You got it right. I bet you feel really good about yourself now",
+        "Correct. Which would be impressive, if it wasn't just luck",
+        "Oh was I yawning? Because you getting that answer right was boring me to sleep",
+        "Hear all that applause for you because you got this question right? Neither do I."
+    ],
 
   admonishments: [
     "Really? That's your guess? WE EXPECTED BETTER OF YOU!",
